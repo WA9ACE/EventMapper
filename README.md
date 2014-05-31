@@ -1,6 +1,6 @@
 # EventMapper
 
-EventMapper is just a small event library for Ruby I'm writing for a small side project. It's pretty simple and works pretty much the way you'd expect events to work in JavaScript.
+EventMapper is just a small, threaded event library for Ruby I'm writing for a small side project. It's pretty simple and works pretty much the way you'd expect events to work in JavaScript with the exception of being threaded.
 
 ## Installation
 
@@ -22,6 +22,9 @@ Or install it yourself as:
 
 	class Thing
 	  include EventMapper
+
+	  # threading_disabled
+	  # threading_enabled
 	end
 
 	thing = Thing.new

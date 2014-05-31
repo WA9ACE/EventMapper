@@ -1,4 +1,4 @@
-require "eventmapper/version"
+require 'eventmapper/version'
 
 module EventMapper
   def on(event, &block)
