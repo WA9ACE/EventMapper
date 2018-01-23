@@ -8,7 +8,7 @@ module EventMapper
     @events ||= Hash.new { |h, k| h[k] = [] }
   end
 
-  def event_blocks
+  def event_blocks?
     @event_blocks ||= true
   end
 
