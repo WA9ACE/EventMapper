@@ -23,8 +23,8 @@ Or install it yourself as:
 	class Thing
 	  include EventMapper
 
-	  # threading_disabled
-	  # threading_enabled
+	  events_sync? # true by default
+	  events_sync = false # enables threaded callbacks
 	end
 
 	thing = Thing.new
