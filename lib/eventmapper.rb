@@ -8,12 +8,12 @@ module EventMapper
     @events ||= Hash.new { |h, k| h[k] = [] }
   end
 
-  def event_blocks?
-    @event_blocks ||= true
+  def events_sync?
+    @events_sync ||= true
   end
 
-  def event_blocks=(bool)
-    @event_blocks = bool
+  def events_sync=(bool)
+    @events_sync = bool
   end
   
   def on(event, &block)
@@ -23,7 +23,7 @@ module EventMapper
   def fire(event, *args)
     if args.empty?
       events[event].each do |proc|
-        if event_blocks
+        if events_sync?
           proc.call
         else
           Thread.new { proc.call }
@@ -31,7 +31,7 @@ module EventMapper
       end
     else
       events[event].each do |proc|
-        if event_blocks
+        if events_sync?
           proc.call *args
         else
           Thread.new { proc.call *args }
