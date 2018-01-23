@@ -1,5 +1,4 @@
 require 'eventmapper/version'
-require 'pry'
 
 module EventMapper
   attr_accessor :event_blocks
