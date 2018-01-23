@@ -1,45 +1,37 @@
 require 'eventmapper/version'
+require 'pry'
 
 module EventMapper
+  attr_accessor :event_blocks
 
-  def set_event_blocking(bool)
+  def events
+    @events ||= Hash.new { |h, k| h[k] = [] }
+  end
+
+  def event_blocks
+    @event_blocks ||= true
+  end
+
+  def event_blocks=(bool)
     @event_blocks = bool
   end
-
-  def event_blocks?
-    if @event_blocks.nil?
-      @event_blocks = true
-    else
-      @event_blocks
-    end
-  end
-
+  
   def on(event, &block)
-    if @events.nil?
-      @events = { event => [block] }
-    elsif @events[event].nil?
-      @events[event] = [block]
-    else
-      @events[event] << block
-    end
+    events[event] << block
   end
 
   def fire(event, *args)
-    if @event_blocks.nil?
-      @event_blocks = true
-    end
-
     if args.empty?
-      @events[event].each do |proc|
-        if @event_blocks
+      events[event].each do |proc|
+        if event_blocks
           proc.call
         else
           Thread.new { proc.call }
         end
       end
     else
-      @events[event].each do |proc|
-        if @event_blocks
+      events[event].each do |proc|
+        if event_blocks
           proc.call *args
         else
           Thread.new { proc.call *args }
